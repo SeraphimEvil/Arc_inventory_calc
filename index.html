@@ -14,6 +14,7 @@
 
 <main>
   <aside class="sidebar">
+  <div class="sidebar-scroll">
   <section class="panel">
     <h2>1. Получите данные</h2>
     <p class="hint">
@@ -49,6 +50,22 @@
       <span id="status" class="status" role="status" aria-live="polite"></span>
     </div>
   </section>
+  </div>
+
+  <section class="panel panel-prices">
+    <h2>3. Цены</h2>
+    <p class="hint small">
+      Укажите цену за 1 шт. Цены сохраняются в браузере и переживают перезагрузку.
+    </p>
+    <div class="price-form">
+      <select id="price-item" aria-label="Предмет для цены">
+        <option value="">Сначала сформируйте таблицу</option>
+      </select>
+      <input type="number" id="price-value" min="0" step="any" placeholder="Цена за 1 шт" aria-label="Цена за 1 шт">
+      <button type="button" id="price-save" class="btn primary">Сохранить</button>
+    </div>
+    <div class="price-list" id="price-list"></div>
+  </section>
   </aside>
 
   <section class="content" id="result" hidden>
@@ -76,6 +93,8 @@
             <th data-sort="equipped" class="sortable num">Надето</th>
             <th data-sort="stacks" class="sortable num">Стаков</th>
             <th data-sort="stackSize" class="sortable num">Размер стака</th>
+            <th data-sort="price" class="sortable num">Цена за шт</th>
+            <th data-sort="total" class="sortable num">Сумма</th>
           </tr>
         </thead>
         <tbody></tbody>
