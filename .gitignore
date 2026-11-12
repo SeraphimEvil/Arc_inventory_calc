@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.vscode/
+
+# Kilo Code
+.kilocode/
+
+# macOS
+.DS_Store
+
+# Временные файлы проверки
+stash-payload.json
+dev-server.js
