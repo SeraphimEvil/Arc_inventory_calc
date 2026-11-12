@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARC Raiders — инвентарь</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>ARC Raiders — инвентарь</h1>
+  <p class="sub">Вставьте данные стеша, нажмите «Сформировать» — получите список предметов с суммарным количеством.</p>
+</header>
+
+<main>
+  <aside class="sidebar">
+  <section class="panel">
+    <h2>1. Получите данные</h2>
+    <p class="hint">
+      Перетащите ссылку ниже в панель закладок. Затем откройте
+      <a href="https://arctracker.io/stash" target="_blank" rel="noopener">arctracker.io/stash</a>,
+      нажмите закладку — данные стеша окажутся в буфере обмена.
+    </p>
+    <p>
+      <a class="bookmarklet" id="bookmarklet" href="#" title="Перетащите меня в закладки">Скопировать стеш</a>
+    </p>
+    <p class="hint small">
+      Не получается перетащить? Нажмите кнопку — код скопируется, вставьте его в адресную строку на arctracker.io.
+    </p>
+    <p><button type="button" id="copy-bookmarklet" class="btn ghost">Скопировать код букмарклета</button></p>
+  </section>
+
+  <section class="panel">
+    <h2>2. Вставьте данные</h2>
+    <p class="hint small">
+      Вставьте JSON в поле ниже или загрузите файлом:
+      <input type="file" id="file" accept=".json,application/json">
+    </p>
+    <p class="hint small">
+      Подойдёт компактный формат <code>{"v":2,"items":[["id",5]],"mods":["id"]}</code>, полный ответ
+      <code>/api/me/stash</code> или просто массив пар <code>[["id",5]]</code>.
+      Файл-справочник предметов (например, <code>stash12112026.json</code>) тоже принимается —
+      он обновит названия, типы и иконки, но сам по себе количеств не содержит.
+    </p>
+    <textarea id="input" spellcheck="false" placeholder='Вставьте сюда JSON из буфера обмена. Подойдёт компактный формат {"v":2,"items":[["id",5]],"mods":["id"]}, полный ответ /api/me/stash или просто массив пар [["id",5]].'></textarea>
+    <div class="row">
+      <button type="button" id="build" class="btn primary">Сформировать</button>
+      <button type="button" id="clear" class="btn ghost">Очистить</button>
+      <span id="status" class="status" role="status" aria-live="polite"></span>
+    </div>
+  </section>
+  </aside>
+
+  <section class="content" id="result" hidden>
+    <h2>3. Результат</h2>
+    <div class="summary" id="summary"></div>
+
+    <div class="controls">
+      <input type="search" id="search" placeholder="Поиск по названию" aria-label="Поиск по названию">
+      <select id="filter-type" aria-label="Фильтр по типу"><option value="">Все типы</option></select>
+      <select id="filter-rarity" aria-label="Фильтр по редкости"><option value="">Все редкости</option></select>
+      <label class="check"><input type="checkbox" id="hide-blueprints"> Скрыть блюпринты</label>
+      <button type="button" id="export-csv" class="btn ghost">CSV</button>
+      <button type="button" id="export-json" class="btn ghost">JSON</button>
+    </div>
+
+    <div class="table-wrap">
+      <table id="table">
+        <thead>
+          <tr>
+            <th class="col-icon"></th>
+            <th data-sort="name" class="sortable">Название</th>
+            <th data-sort="type" class="sortable">Тип</th>
+            <th data-sort="rarity" class="sortable">Редкость</th>
+            <th data-sort="qty" class="sortable num">Количество</th>
+            <th data-sort="equipped" class="sortable num">Надето</th>
+            <th data-sort="stacks" class="sortable num">Стаков</th>
+            <th data-sort="stackSize" class="sortable num">Размер стака</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="placeholder" id="placeholder">
+    <p>Здесь появится таблица предметов.</p>
+    <p class="hint small">Заполните блок 2 слева и нажмите «Сформировать».</p>
+  </div>
+</main>
+
+<script src="items-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
